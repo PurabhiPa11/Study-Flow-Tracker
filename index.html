@@ -8,7 +8,9 @@
 
 <!-- LOGIN SCREEN -->
 <div id="loginScreen" class="center">
-    <h1>Study Flow Tracker</h1>
+    <h1> Study Flow Tracker</h1>
+    <p class="subtitle">Track your focus. Build consistency.</p>
+
     <input type="text" id="name" placeholder="Your Name">
     <input type="text" id="field" placeholder="Your Field (e.g. CS)">
     <button onclick="startApp()">Start</button>
@@ -19,30 +21,49 @@
 
     <h2 id="welcome"></h2>
 
-    <!-- PLAN SECTION -->
-    <div class="card">
-        <h3>Plan Your Day</h3>
-        <input type="number" id="plannedHours" placeholder="Planned Hours">
-        <button onclick="setPlan()">Set Plan</button>
-    </div>
+    <div class="grid">
 
-    <!-- WORK DONE -->
-    <div class="card">
-        <h3>Work Done</h3>
-        <input type="number" id="completedHours" placeholder="Completed Hours">
-        <button onclick="updateWork()">Update</button>
-    </div>
+        <!-- PROGRESS -->
+        <div class="card progress-card">
+            <h3>Progress</h3>
 
-    <!-- PROGRESS -->
-    <div class="card">
-        <h3>Progress</h3>
-        <div class="progress-bar">
-            <div id="progress"></div>
+            <div class="circle">
+                <svg>
+                    <circle cx="60" cy="60" r="50"></circle>
+                    <circle cx="60" cy="60" r="50" id="circleProgress"></circle>
+                </svg>
+                <div id="percent">0%</div>
+            </div>
+
+            <p id="message"></p>
         </div>
-        <p id="percent">0%</p>
-        <p id="message"></p>
-    </div>
 
+        <!-- PLAN -->
+        <div class="card">
+            <h3>Plan Your Day</h3>
+            <input type="number" id="plannedHours" placeholder="Planned Hours">
+            <button onclick="setPlan()">Set Plan</button>
+        </div>
+
+        <!-- WORK -->
+        <div class="card">
+            <h3>Work Done</h3>
+            <input type="number" id="completedHours" placeholder="Completed Hours">
+            <button onclick="updateWork()">Update</button>
+        </div>
+
+        <!-- SUBJECTS -->
+        <div class="card">
+            <h3>Subjects</h3>
+            <div class="subjects">
+                <div class="subject"> DSA</div>
+                <div class="subject"> Coding</div>
+                <div class="subject"> DBMS</div>
+                <div class="subject"> OOP</div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
 <script src="script.js"></script>

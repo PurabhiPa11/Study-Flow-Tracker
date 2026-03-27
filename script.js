@@ -9,7 +9,7 @@ function startApp() {
     document.getElementById("loginScreen").style.display = "none";
     document.getElementById("dashboard").style.display = "block";
 
-    document.getElementById("welcome").innerText = "Welcome, " + name;
+    document.getElementById("welcome").innerText = "Welcome, " + name + " ";
 }
 
 function setPlan() {
@@ -27,15 +27,18 @@ function updateProgress() {
 
     let percent = Math.min((completed / planned) * 100, 100);
 
-    document.getElementById("progress").style.width = percent + "%";
+    let circle = document.getElementById("circleProgress");
+    let offset = 314 - (314 * percent) / 100;
+    circle.style.strokeDashoffset = offset;
+
     document.getElementById("percent").innerText = Math.floor(percent) + "%";
 
     let msg = "";
 
-    if (percent < 30) msg = "Start pushing ";
-    else if (percent < 70) msg = "Good progress ";
-    else if (percent < 100) msg = "Almost there ";
-    else msg = "Completed ";
+    if (percent < 30) msg = " Start pushing!";
+    else if (percent < 70) msg = " Good progress!";
+    else if (percent < 100) msg = " Almost there!";
+    else msg = "🎉 Completed!";
 
     document.getElementById("message").innerText = msg;
 }
