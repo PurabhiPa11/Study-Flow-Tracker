@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Study Flow Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Study Flow Tracker</h1>
+
+    <div class="input-box">
+        <input type="text" id="subject" placeholder="Subject">
+        <input type="number" id="hours" placeholder="Hours">
+        <button onclick="addStudy()">Add</button>
+    </div>
+
+    <div class="stats">
+        <p>Total Hours: <span id="total">0</span></p>
+        <p>Streak: <span id="streak">1</span> days</p>
+    </div>
+
+    <div class="progress-bar">
+        <div id="progress"></div>
+    </div>
+
+    <ul id="list"></ul>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
