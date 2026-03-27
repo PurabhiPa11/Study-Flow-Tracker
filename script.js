@@ -1,32 +1,41 @@
-let totalHours = 0;
-let streak = 1;
+let planned = 0;
+let completed = 0;
 
-function addStudy() {
-    let subject = document.getElementById("subject").value;
-    let hours = parseInt(document.getElementById("hours").value);
+function startApp() {
+    let name = document.getElementById("name").value;
 
-    if (!subject || !hours) return;
+    if (!name) return;
 
-    // Add to list
-    let li = document.createElement("li");
-    li.innerText = subject + " - " + hours + " hrs";
-    document.getElementById("list").appendChild(li);
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
 
-    // Update total
-    totalHours += hours;
-    document.getElementById("total").innerText = totalHours;
+    document.getElementById("welcome").innerText = "Welcome, " + name;
+}
 
-    // Update progress (goal = 10 hrs)
-    let progress = Math.min((totalHours / 10) * 100, 100);
-    document.getElementById("progress").style.width = progress + "%";
+function setPlan() {
+    planned = parseInt(document.getElementById("plannedHours").value);
+    updateProgress();
+}
 
-    // Simple streak logic
-    if (hours > 0) {
-        streak++;
-        document.getElementById("streak").innerText = streak;
-    }
+function updateWork() {
+    completed = parseInt(document.getElementById("completedHours").value);
+    updateProgress();
+}
 
-    // Clear inputs
-    document.getElementById("subject").value = "";
-    document.getElementById("hours").value = "";
+function updateProgress() {
+    if (!planned) return;
+
+    let percent = Math.min((completed / planned) * 100, 100);
+
+    document.getElementById("progress").style.width = percent + "%";
+    document.getElementById("percent").innerText = Math.floor(percent) + "%";
+
+    let msg = "";
+
+    if (percent < 30) msg = "Start pushing ";
+    else if (percent < 70) msg = "Good progress ";
+    else if (percent < 100) msg = "Almost there ";
+    else msg = "Completed ";
+
+    document.getElementById("message").innerText = msg;
 }
