@@ -1,37 +1,38 @@
-let planned = 0;
-let completed = 0;
 let tasks = [];
-let streak = 0;
+let selectedType = "Study";
 
 function startApp() {
     let name = document.getElementById("name").value;
-
     if (!name) return;
 
     document.getElementById("loginScreen").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
+    document.getElementById("app").style.display = "block";
 
-    document.getElementById("welcome").innerText = "Welcome, " + name + " ";
+    document.getElementById("welcome").innerText = "Hey, " + name + " 👋";
 }
 
-function setPlan() {
-    planned = parseInt(document.getElementById("plannedHours").value);
-    updateProgress();
+function selectType(el) {
+    document.querySelectorAll(".cat").forEach(c => c.classList.remove("active"));
+    el.classList.add("active");
+    selectedType = el.innerText;
 }
 
 function addTask() {
     let name = document.getElementById("taskName").value;
-    let type = document.getElementById("taskType").value;
+    let hours = parseInt(document.getElementById("taskHours").value);
 
-    if (!name) return;
+    if (!name || !hours) return;
 
     tasks.push({
         name,
-        type,
+        hours,
+        type: selectedType,
         done: false
     });
 
     renderTasks();
+    updateProgress();
+
     document.getElementById("taskName").value = "";
 }
 
@@ -39,68 +40,46 @@ function renderTasks() {
     let container = document.getElementById("taskList");
     container.innerHTML = "";
 
-    let icons = {
-        Study: "📘",
-        Assignment: "📝",
-        Project: "💻",
-        Presentation: "📊"
-    };
-
-    tasks.forEach((task, index) => {
+    tasks.forEach((t, i) => {
         let div = document.createElement("div");
         div.className = "task";
-
-        if (task.done) div.classList.add("done");
+        if (t.done) div.classList.add("done");
 
         div.innerHTML = `
-            <span>${icons[task.type]} ${task.name}</span>
-            <button onclick="toggleTask(${index})">✔</button>
+            <div class="circle-check" onclick="toggleTask(${i})"></div>
+            <div>
+                <strong>${t.name}</strong>
+                <div>${t.type} • ${t.hours} hrs</div>
+            </div>
         `;
 
         container.appendChild(div);
     });
 }
 
-function toggleTask(index) {
-    tasks[index].done = !tasks[index].done;
-
-    if (tasks[index].done) {
-        completed++;
-    } else {
-        completed--;
-    }
-
-    updateProgress();
+function toggleTask(i) {
+    tasks[i].done = !tasks[i].done;
     renderTasks();
-    checkStreak();
+    updateProgress();
 }
 
 function updateProgress() {
-    if (!planned) return;
+    let total = tasks.reduce((s, t) => s + t.hours, 0);
+    let done = tasks.filter(t => t.done).reduce((s, t) => s + t.hours, 0);
 
-    let percent = Math.min((completed / planned) * 100, 100);
+    let percent = total ? (done / total) * 100 : 0;
 
     let circle = document.getElementById("circleProgress");
-    let offset = 314 - (314 * percent) / 100;
+    let offset = 377 - (377 * percent) / 100;
     circle.style.strokeDashoffset = offset;
 
     document.getElementById("percent").innerText = Math.floor(percent) + "%";
 
-    let msg = "";
-
-    if (percent < 30) msg = "🚀 Start pushing!";
-    else if (percent < 70) msg = " Good progress!";
-    else if (percent < 100) msg = " Almost there!";
-    else msg = "🎉 Completed!";
+    let msg = "Start your day";
+    if (percent > 20) msg = "Good start 🚀";
+    if (percent > 50) msg = "You're doing great 🔥";
+    if (percent > 80) msg = "Almost done 💪";
+    if (percent === 100) msg = "Perfect day 🎉";
 
     document.getElementById("message").innerText = msg;
-}
-
-function checkStreak() {
-    let allDone = tasks.length > 0 && tasks.every(t => t.done);
-
-    if (allDone) {
-        streak++;
-        document.getElementById("streak").innerText = streak;
-    }
 }

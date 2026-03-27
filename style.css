@@ -1,145 +1,154 @@
 body {
-    font-family: Arial;
-    background: linear-gradient(135deg, #0B0F1A, #1e3a8a);
-    color: white;
     margin: 0;
+    font-family: Arial;
+    background: linear-gradient(180deg, #0B0F1A, #1e1b4b);
+    color: white;
 }
 
 /* LOGIN */
 .center {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-top: 120px;
+    height: 100vh;
 }
 
-.subtitle {
-    color: #9ca3af;
-    margin-bottom: 20px;
-}
-
-/* INPUTS */
-input, select {
-    padding: 10px;
-    margin: 8px;
-    border-radius: 8px;
-    border: none;
-    width: 220px;
-}
-
-/* BUTTON */
-button {
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    background: #6d5df6;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    transform: translateY(-2px);
-    background: #5a4df0;
-}
-
-/* DASHBOARD */
-#dashboard {
-    padding: 20px;
-}
-
-/* TOP BAR */
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.streak {
-    background: rgba(255,255,255,0.08);
-    padding: 8px 15px;
-    border-radius: 10px;
-}
-
-/* GRID */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-}
-
-/* CARDS */
-.card {
+.login-card {
     background: rgba(255,255,255,0.05);
-    padding: 20px;
-    border-radius: 16px;
-    backdrop-filter: blur(12px);
-    transition: 0.3s;
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    text-align: center;
 }
 
-.card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-}
-
-/* TASKS */
-#taskList {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.task {
-    background: rgba(255,255,255,0.06);
+.login-card input {
     padding: 12px;
+    margin-top: 15px;
     border-radius: 10px;
+    border: none;
+}
+
+/* APP */
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* HEADER */
+.header {
+    margin-bottom: 20px;
+}
+
+/* HERO */
+.progress-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    transition: 0.3s;
+    gap: 30px;
 }
 
-.task:hover {
-    transform: translateX(5px);
-    background: rgba(255,255,255,0.12);
-}
-
-.task.done {
-    text-decoration: line-through;
-    opacity: 0.6;
-}
-
-/* PROGRESS CIRCLE */
+/* CIRCLE */
 .circle {
     position: relative;
-    width: 120px;
-    height: 120px;
-    margin: auto;
+    width: 140px;
+    height: 140px;
 }
 
 svg {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     transform: rotate(-90deg);
 }
 
 circle {
     fill: none;
     stroke-width: 10;
-    stroke: #1e293b;
+    stroke: #1f2937;
 }
 
 #circleProgress {
-    stroke: #6d5df6;
-    stroke-dasharray: 314;
-    stroke-dashoffset: 314;
-    transition: 0.6s;
+    stroke: #8b7cff;
+    stroke-dasharray: 377;
+    stroke-dashoffset: 377;
+    transition: 0.5s;
 }
 
 .circle div {
     position: absolute;
-    top: 38%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 20px;
+}
+
+/* CATEGORY */
+.categories {
+    display: flex;
+    gap: 10px;
+    margin: 30px 0;
+}
+
+.cat {
+    padding: 10px 15px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+    cursor: pointer;
+}
+
+.cat.active {
+    background: #6d5df6;
+}
+
+/* INPUT */
+.task-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.task-input input {
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: none;
+    background: #6d5df6;
+    color: white;
+    cursor: pointer;
+}
+
+/* TASK */
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px;
+    border-radius: 12px;
+    background: rgba(255,255,255,0.05);
+}
+
+.circle-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid white;
+    cursor: pointer;
+}
+
+.done .circle-check {
+    background: #6d5df6;
+}
+
+.done {
+    text-decoration: line-through;
+    opacity: 0.6;
 }

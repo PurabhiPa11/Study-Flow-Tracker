@@ -1,71 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Study Flow Tracker</title>
+    <title>Study Flow</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <!-- LOGIN -->
 <div id="loginScreen" class="center">
-    <h1>📚 Study Flow Tracker</h1>
-    <p class="subtitle">Track your focus. Build consistency.</p>
+    <div class="login-card">
+        <h1>📚 Study Flow</h1>
+        <p>Track your focus. Build consistency.</p>
 
-    <input type="text" id="name" placeholder="Your Name">
-    <input type="text" id="field" placeholder="Your Field">
-    <button onclick="startApp()">Start</button>
+        <input type="text" id="name" placeholder="Your Name">
+        <button onclick="startApp()">Enter</button>
+    </div>
 </div>
 
-<!-- DASHBOARD -->
-<div id="dashboard" style="display:none;">
+<!-- APP -->
+<div id="app" style="display:none;">
+    <div class="container">
 
-    <div class="top-bar">
-        <h2 id="welcome"></h2>
-        <div class="streak">🔥 Streak: <span id="streak">0</span></div>
-    </div>
+        <!-- HEADER -->
+        <div class="header">
+            <h2 id="welcome"></h2>
+        </div>
 
-    <div class="grid">
+        <!-- HERO -->
+        <section class="hero">
+            <div class="progress-container">
+                <div class="circle">
+                    <svg>
+                        <circle cx="70" cy="70" r="60"></circle>
+                        <circle cx="70" cy="70" r="60" id="circleProgress"></circle>
+                    </svg>
+                    <div id="percent">0%</div>
+                </div>
 
-        <!-- PROGRESS -->
-        <div class="card progress-card">
-            <h3>Progress</h3>
-            <div class="circle">
-                <svg>
-                    <circle cx="60" cy="60" r="50"></circle>
-                    <circle cx="60" cy="60" r="50" id="circleProgress"></circle>
-                </svg>
-                <div id="percent">0%</div>
+                <div class="progress-text">
+                    <h2 id="message">Start your day</h2>
+                    <p>Track your daily progress</p>
+                </div>
             </div>
-            <p id="message"></p>
-        </div>
+        </section>
 
-        <!-- PLAN -->
-        <div class="card">
-            <h3>Plan Your Day</h3>
-            <input type="number" id="plannedHours" placeholder="Planned Hours">
-            <button onclick="setPlan()">Set Plan</button>
-        </div>
+        <!-- CATEGORY -->
+        <section class="categories">
+            <div class="cat active" onclick="selectType(this)">📘 Study</div>
+            <div class="cat" onclick="selectType(this)">💻 Coding</div>
+            <div class="cat" onclick="selectType(this)">📝 Assignment</div>
+            <div class="cat" onclick="selectType(this)">📊 Presentation</div>
+        </section>
 
         <!-- TASK INPUT -->
-        <div class="card">
-            <h3>Add Task</h3>
-            <input type="text" id="taskName" placeholder="Task name">
-
-            <select id="taskType">
-                <option>Study</option>
-                <option>Assignment</option>
-                <option>Project</option>
-                <option>Presentation</option>
-            </select>
-
-            <button onclick="addTask()">Add Task</button>
-        </div>
+        <section class="task-input">
+            <input type="text" id="taskName" placeholder="Write your task...">
+            <input type="number" id="taskHours" placeholder="Hours">
+            <button onclick="addTask()">Add</button>
+        </section>
 
         <!-- TASK LIST -->
-        <div class="card">
-            <h3>Your Tasks</h3>
-            <div id="taskList"></div>
-        </div>
+        <section id="taskList" class="task-list"></section>
 
     </div>
 </div>
