@@ -6,27 +6,29 @@
 </head>
 <body>
 
-<!-- LOGIN SCREEN -->
+<!-- LOGIN -->
 <div id="loginScreen" class="center">
-    <h1> Study Flow Tracker</h1>
+    <h1>📚 Study Flow Tracker</h1>
     <p class="subtitle">Track your focus. Build consistency.</p>
 
     <input type="text" id="name" placeholder="Your Name">
-    <input type="text" id="field" placeholder="Your Field (e.g. CS)">
+    <input type="text" id="field" placeholder="Your Field">
     <button onclick="startApp()">Start</button>
 </div>
 
 <!-- DASHBOARD -->
 <div id="dashboard" style="display:none;">
 
-    <h2 id="welcome"></h2>
+    <div class="top-bar">
+        <h2 id="welcome"></h2>
+        <div class="streak">🔥 Streak: <span id="streak">0</span></div>
+    </div>
 
     <div class="grid">
 
         <!-- PROGRESS -->
         <div class="card progress-card">
             <h3>Progress</h3>
-
             <div class="circle">
                 <svg>
                     <circle cx="60" cy="60" r="50"></circle>
@@ -34,7 +36,6 @@
                 </svg>
                 <div id="percent">0%</div>
             </div>
-
             <p id="message"></p>
         </div>
 
@@ -45,22 +46,25 @@
             <button onclick="setPlan()">Set Plan</button>
         </div>
 
-        <!-- WORK -->
+        <!-- TASK INPUT -->
         <div class="card">
-            <h3>Work Done</h3>
-            <input type="number" id="completedHours" placeholder="Completed Hours">
-            <button onclick="updateWork()">Update</button>
+            <h3>Add Task</h3>
+            <input type="text" id="taskName" placeholder="Task name">
+
+            <select id="taskType">
+                <option>Study</option>
+                <option>Assignment</option>
+                <option>Project</option>
+                <option>Presentation</option>
+            </select>
+
+            <button onclick="addTask()">Add Task</button>
         </div>
 
-        <!-- SUBJECTS -->
+        <!-- TASK LIST -->
         <div class="card">
-            <h3>Subjects</h3>
-            <div class="subjects">
-                <div class="subject"> DSA</div>
-                <div class="subject"> Coding</div>
-                <div class="subject"> DBMS</div>
-                <div class="subject"> OOP</div>
-            </div>
+            <h3>Your Tasks</h3>
+            <div id="taskList"></div>
         </div>
 
     </div>
