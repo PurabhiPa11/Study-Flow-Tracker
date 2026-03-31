@@ -1,69 +1,183 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Study Flow</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Study Flow</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
 <!-- LOGIN -->
-<div id="loginScreen" class="center">
-    <div class="login-card">
-        <h1>📚 Study Flow</h1>
-        <p>Track your focus. Build consistency.</p>
-
-        <input type="text" id="name" placeholder="Your Name">
-        <button onclick="startApp()">Enter</button>
+<div id="loginScreen">
+  <div class="login-wrap">
+    <div class="login-badge">📚 Study Flow</div>
+    <h1 class="login-title">Build your <span>focus habit.</span></h1>
+    <p class="login-sub">Track tasks, crush goals, and keep your streak alive every single day.</p>
+    <div class="field">
+      <input type="text" id="inp-name" placeholder="Your name" autocomplete="off"/>
     </div>
+    <div class="field">
+      <input type="text" id="inp-std" placeholder="Standard / Degree (e.g. 12th Science, B.Tech)" autocomplete="off"/>
+    </div>
+    <button class="btn-login" onclick="startApp()">
+      Start Tracking
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </button>
+  </div>
 </div>
 
 <!-- APP -->
-<div id="app" style="display:none;">
-    <div class="container">
+<div id="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-logo-icon">📚</div>
+      <span class="sb-logo-text">StudyFlow</span>
+    </div>
 
-        <!-- HEADER -->
-        <div class="header">
-            <h2 id="welcome"></h2>
+    <div class="sb-section-label">Menu</div>
+    <nav class="sb-nav">
+      <button class="sb-item active" data-sec="dashboard" onclick="nav(this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Dashboard
+      </button>
+      <button class="sb-item" data-sec="board" onclick="nav(this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="10" y="3" width="5" height="12" rx="1"/><rect x="17" y="3" width="5" height="15" rx="1"/></svg>
+        Task Board
+      </button>
+      <button class="sb-item" data-sec="streak" onclick="nav(this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Streak
+      </button>
+    </nav>
+
+    <div class="sb-bottom">
+      <div class="sb-user">
+        <div class="sb-avatar" id="sb-avatar">?</div>
+        <div>
+          <div class="sb-user-name" id="sb-uname">—</div>
+          <div class="sb-user-std" id="sb-ustd">—</div>
+        </div>
+      </div>
+      <button class="sb-logout" onclick="logout()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log out
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <header class="topbar">
+      <span class="topbar-title" id="topbar-title">Dashboard</span>
+      <div class="greeting">
+        <span class="greeting-dot"></span>
+        <span id="greeting-text">Hello!</span>
+      </div>
+    </header>
+
+    <!-- DASHBOARD -->
+    <section class="section active" id="sec-dashboard">
+      <div class="dash-grid">
+
+        <!-- Progress ring -->
+        <div class="card progress-card">
+          <div class="ring-container">
+            <svg class="ring-svg" viewBox="0 0 150 150">
+              <defs>
+                <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#3b82f6"/>
+                  <stop offset="100%" stop-color="#818cf8"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-track" cx="75" cy="75" r="65"/>
+              <circle class="ring-progress" id="ringProgress" cx="75" cy="75" r="65"/>
+            </svg>
+            <div class="ring-text">
+              <span class="ring-pct" id="ringPct">0%</span>
+              <span class="ring-lbl">today</span>
+            </div>
+          </div>
+          <div class="progress-info">
+            <div class="progress-status">Status</div>
+            <div class="progress-msg" id="progMsg">Start your day ✨</div>
+            <div class="progress-sub" id="progSub">Add tasks and log your hours below</div>
+          </div>
         </div>
 
-        <!-- HERO -->
-        <section class="hero">
-            <div class="progress-container">
-                <div class="circle">
-                    <svg>
-                        <circle cx="70" cy="70" r="60"></circle>
-                        <circle cx="70" cy="70" r="60" id="circleProgress"></circle>
-                    </svg>
-                    <div id="percent">0%</div>
-                </div>
+        <!-- Stats -->
+        <div class="stats-col">
+          <div class="stat-card">
+            <span class="stat-emoji">🔥</span>
+            <div><span class="stat-val" id="st-streak">0</span><div class="stat-lbl">Day Streak</div></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-emoji">✅</span>
+            <div><span class="stat-val" id="st-done">0</span><div class="stat-lbl">Completed</div></div>
+          </div>
+          <div class="stat-card">
+            <span class="stat-emoji">⏱️</span>
+            <div><span class="stat-val" id="st-hrs">0h</span><div class="stat-lbl">Hours Done</div></div>
+          </div>
+        </div>
 
-                <div class="progress-text">
-                    <h2 id="message">Start your day</h2>
-                    <p>Track your daily progress</p>
-                </div>
-            </div>
-        </section>
+        <!-- Add task -->
+        <div class="card add-card">
+          <div class="card-title">Add a task</div>
+          <div class="type-pills" id="typePills">
+            <button class="pill active" data-type="Study" onclick="pickType(this)">📘 Study</button>
+            <button class="pill" data-type="Coding" onclick="pickType(this)">💻 Coding</button>
+            <button class="pill" data-type="Assignment" onclick="pickType(this)">📝 Assignment</button>
+            <button class="pill" data-type="Homework" onclick="pickType(this)">📖 Homework</button>
+            <button class="pill" data-type="Presentation" onclick="pickType(this)">📊 Presentation</button>
+          </div>
+          <div class="task-form">
+            <input class="t-input" type="text" id="inp-task" placeholder="What are you working on?"/>
+            <input class="t-input t-hrs" type="number" id="inp-hrs" placeholder="hrs" min=".5" step=".5"/>
+            <button class="btn-add" onclick="addTask()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
 
-        <!-- CATEGORY -->
-        <section class="categories">
-            <div class="cat active" onclick="selectType(this)">📘 Study</div>
-            <div class="cat" onclick="selectType(this)">💻 Coding</div>
-            <div class="cat" onclick="selectType(this)">📝 Assignment</div>
-            <div class="cat" onclick="selectType(this)">📊 Presentation</div>
-        </section>
+      <!-- Task list -->
+      <div class="card tasks-card">
+        <div class="card-title">Today's tasks</div>
+        <div class="task-list" id="taskList">
+          <div class="empty" id="emptyMsg">
+            <span class="empty-icon">🎯</span>
+            <p>No tasks yet — add one above!</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <!-- TASK INPUT -->
-        <section class="task-input">
-            <input type="text" id="taskName" placeholder="Write your task...">
-            <input type="number" id="taskHours" placeholder="Hours">
-            <button onclick="addTask()">Add</button>
-        </section>
+    <!-- BOARD -->
+    <section class="section" id="sec-board">
+      <div class="board" id="boardGrid"></div>
+    </section>
 
-        <!-- TASK LIST -->
-        <section id="taskList" class="task-list"></section>
-
-    </div>
+    <!-- STREAK -->
+    <section class="section" id="sec-streak">
+      <div class="streak-hero">
+        <span class="streak-flame">🔥</span>
+        <div class="streak-num" id="big-streak">0</div>
+        <div class="streak-label">Day Streak</div>
+        <p class="streak-desc">Complete tasks every day to grow your streak. Consistency is everything.</p>
+      </div>
+      <div class="streak-cal">
+        <div class="cal-title">This week</div>
+        <div class="cal-grid" id="calGrid"></div>
+      </div>
+    </section>
+  </div>
 </div>
+
+<canvas id="confetti"></canvas>
 
 <script src="script.js"></script>
 </body>
